@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.annotation.Repeatable;
 import java.util.Optional;
 
 @RestController
@@ -16,7 +15,7 @@ public class CatalogoController {
     private final CatalogoService catalogoService;
 
     @GetMapping
-    public ResponseEntity<?>  findAll() {
+    public ResponseEntity<?> findAll() {
         return ResponseEntity.ok(catalogoService.findAll());
     }
 
@@ -26,9 +25,8 @@ public class CatalogoController {
         if (optionalCatalogo.isPresent()) {
             return ResponseEntity.ok(optionalCatalogo.get());
         }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
