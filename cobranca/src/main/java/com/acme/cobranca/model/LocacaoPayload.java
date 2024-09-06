@@ -1,4 +1,6 @@
 package com.acme.cobranca.model;
 
-public record LocacaoPayload() {
+import java.util.List;
+
+public record LocacaoPayload(List<Titulo> titulos) {
 }
