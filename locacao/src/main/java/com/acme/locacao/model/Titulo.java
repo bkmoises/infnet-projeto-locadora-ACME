@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Data@AllArgsConstructor@NoArgsConstructor@Builder
 public class Titulo {
     private long catalogoId;
-    private long quantidade;
     private short dias;
     private LocalDate data;
 }

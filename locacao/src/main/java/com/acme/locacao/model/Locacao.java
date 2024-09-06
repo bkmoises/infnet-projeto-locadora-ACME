@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,4 +17,5 @@ public class Locacao {
     @Id
     private String id;
     private List<Titulo> titulos;
+    private BigDecimal valorTotal;
 }
