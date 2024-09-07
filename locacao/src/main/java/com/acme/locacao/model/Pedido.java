@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data@AllArgsConstructor@NoArgsConstructor@Builder
-public class Titulo {
+public class Pedido {
     private long catalogoId;
     private short dias;
-    private LocalDate data;
+    private LocalDate dataLocacao;
+    private LocalDate dataDevolucao;
 }
