@@ -12,6 +12,27 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: locacao
+          uri: lb://LOCACAO-SERVICE
+          predicates:
+            - Path=/locacao/**
+          filters:
+            - StripPrefix=1
+
+        - id: cobranca
+          uri: lb://COBRANCA-SERVICE
+          predicates:
+            - Path=/cobranca/**
+          filters:
+            - StripPrefix=1
+
+        - id: cliente
+          uri: lb://CLIENTE-SERVICE
+          predicates:
+            - Path=/cliente/**
+          filters:
+            - StripPrefix=1
+
 server:
   port: 9999
 
