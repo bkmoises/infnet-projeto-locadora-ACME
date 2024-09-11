@@ -11,6 +11,14 @@ spring:
             - Path=/catalogo/**
           filters:
             - StripPrefix=1
+            - name: Retry
+              args:
+                  retries: 3
+                  methods: GET, POST
+                  backoff:
+                    initialInterval: 300ms
+                    maxInterval: 2s
+                    multiplier: 2
 
         - id: locacao
           uri: lb://LOCACAO-SERVICE
