@@ -33,6 +33,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: avaliacao
+          uri: lb://AVALIACAO-SERVICE
+          predicates:
+            - Path=/avaliacao/**
+          filters:
+            - StripPrefix=1
+
 server:
   port: 9999
 

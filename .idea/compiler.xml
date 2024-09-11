@@ -9,15 +9,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="cobranca" />
         <module name="cliente" />
+        <module name="eureka" />
         <module name="catalogo" />
         <module name="locacao" />
-        <module name="eureka" />
+        <module name="avaliacao" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="avaliacao" options="-parameters" />
       <module name="catalogo" options="-parameters" />
       <module name="cliente" options="-parameters" />
       <module name="cobranca" options="-parameters" />
