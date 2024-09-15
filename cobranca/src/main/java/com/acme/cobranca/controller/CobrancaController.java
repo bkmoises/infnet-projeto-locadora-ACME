@@ -19,7 +19,7 @@ public class CobrancaController {
     private final CobrancaService cobrancaService;
 
     @PostMapping
-    public ResponseEntity calcularCusto(@RequestBody LocacaoPayload locacaoPayload) {
+    public ResponseEntity<Map<String, BigDecimal>> calcularCusto(@RequestBody LocacaoPayload locacaoPayload) {
         BigDecimal cobranca = cobrancaService.calcularValorTotal(locacaoPayload);
         return ResponseEntity.ok(Map.of("valorTotal", cobranca));
     }

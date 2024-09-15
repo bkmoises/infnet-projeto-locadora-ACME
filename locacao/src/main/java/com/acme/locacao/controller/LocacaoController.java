@@ -23,6 +23,6 @@ public class LocacaoController {
         CobrancaReponsePaylod cobrancaResponse = cobrancaService.getValorTotal(locacao);
         locacao.setValorTotal(cobrancaResponse.valorTotal());
         locacaoService.save(locacao);
-        return null;
+        return ResponseEntity.ok(locacao);
     }
 }
