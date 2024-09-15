@@ -1,0 +1,16 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/bkmoises/acme-not-config
+          clone-on-start: true
+          search-paths:
+            - "config"
+          username: bkmoises
+          password: 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
