@@ -17,6 +17,8 @@
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/avaliacao/pom.xml" />
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/nota-fiscal/pom.xml" />
+        <option value="$PROJECT_DIR$/nota-fiscal-worker/pom.xml" />
       </list>
     </option>
   </component>

@@ -10,7 +10,9 @@
         <module name="cobranca" />
         <module name="cliente" />
         <module name="config-server" />
+        <module name="nota-fiscal-worker" />
         <module name="eureka" />
+        <module name="nota-fiscal" />
         <module name="catalogo" />
         <module name="locacao" />
         <module name="avaliacao" />
@@ -28,6 +30,8 @@
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="locacao" options="-parameters" />
+      <module name="nota-fiscal" options="-parameters" />
+      <module name="nota-fiscal-worker" options="-parameters" />
     </option>
   </component>
 </project>
