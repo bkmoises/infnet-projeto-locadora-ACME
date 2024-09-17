@@ -32,7 +32,7 @@ public class NotaFiscalController {
         }
     }
 
-    @GetMapping("/{notafiscalId")
+    @GetMapping("/{notafiscalId}")
     public ResponseEntity<?> getNotaFiscal(@PathVariable Long notafiscalId) {
         return ResponseEntity.ok(notaFiscalService.findById(notafiscalId));
     }
