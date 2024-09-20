@@ -10,6 +10,7 @@
         <module name="cobranca" />
         <module name="cliente" />
         <module name="config-server" />
+        <module name="auth-service" />
         <module name="nota-fiscal-worker" />
         <module name="eureka" />
         <module name="nota-fiscal" />
@@ -22,6 +23,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-service" options="-parameters" />
       <module name="avaliacao" options="-parameters" />
       <module name="catalogo" options="-parameters" />
       <module name="cliente" options="-parameters" />

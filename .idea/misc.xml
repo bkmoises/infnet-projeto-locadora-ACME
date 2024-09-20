@@ -19,6 +19,7 @@
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/nota-fiscal/pom.xml" />
         <option value="$PROJECT_DIR$/nota-fiscal-worker/pom.xml" />
+        <option value="$PROJECT_DIR$/auth-service/pom.xml" />
       </list>
     </option>
   </component>

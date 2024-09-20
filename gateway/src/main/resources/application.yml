@@ -26,6 +26,9 @@ spring:
             - Path=/locacao/**
           filters:
             - StripPrefix=1
+            - name: UserAuthentication
+              args:
+                headerName: Authorization
 
         - id: cobranca
           uri: lb://COBRANCA-SERVICE
