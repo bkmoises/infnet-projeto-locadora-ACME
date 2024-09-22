@@ -2,8 +2,6 @@ server:
   port: 8888
 
 spring:
-  profiles:
-    active: docker
   application:
     name: config-server
   cloud:
@@ -15,4 +13,4 @@ spring:
           search-paths:
             - "config"
           username: bkmoises
-          password: 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
+          password: ${GITHUB_TOKEN}

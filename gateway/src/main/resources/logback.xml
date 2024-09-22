@@ -39,8 +39,9 @@
         </root>
     </springProfile>
 
-    <springProfile name="prod">
+    <springProfile name="docker">
         <root level="INFO">
+            <appender-ref ref="STDOUT"/>
             <appender-ref ref="PAPERTRAIL"/>
             <!-- <appender-ref ref="GELF"/> -->
         </root>

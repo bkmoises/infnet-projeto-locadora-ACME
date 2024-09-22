@@ -1,18 +1,15 @@
 spring:
-  profiles:
-    active: docker
+  config:
+    import: optional:configserver:http://config-server:8888
   application:
-    name: locacao-service
-
-app:
-  myport: ${PORT:0}
+    name: cobranca-service
 
 server:
-  port: ${app.myport}
+  port: 8080
 
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://EUREKA-SERVICE:8761/eureka
