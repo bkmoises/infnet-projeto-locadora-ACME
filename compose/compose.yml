@@ -40,20 +40,23 @@ services:
     networks:
       - acme
 
-  postgres-notafiscal:
-    container_name: postgres-notafiscal
+  notafiscaldb:
     image: postgres:latest
+    container_name: notafiscaldb
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: notafiscal
     networks:
       - acme
-
-
-networks:
-  acme:
-    driver: bridge
 
 volumes:
   mongo-data:
     driver: local
+
+networks:
+  acme:
+    driver: bridge
+    external: true

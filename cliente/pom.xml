@@ -144,7 +144,6 @@
 									<groupId>com.acme</groupId>
 									<artifactId>cliente</artifactId>
 									<version>0.0.1-SNAPSHOT</version>
-
 									<type>jar</type>
 									<outputDirectory>docker/</outputDirectory>
 									<destFileName>app.jar</destFileName>

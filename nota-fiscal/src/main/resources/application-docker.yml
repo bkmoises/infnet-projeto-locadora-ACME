@@ -1,12 +1,11 @@
 server:
   port: 8080
+
 spring:
   application:
     name: nota-fiscal-service
-  main:
-    allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:postgresql://postgres-notafiscal:5432/postgres
+    url: jdbc:postgresql://notafiscaldb:5432/notafiscal
     username: postgres
     password: postgres
   jpa:
