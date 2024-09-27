@@ -52,6 +52,83 @@ services:
     networks:
       - acme
 
+  eureka-service:
+    container_name: EUREKA-SERVICE
+    image: moisesreis/eureka:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - acme
+
+  config-server:
+    container_name: config-server
+    image: moisesreis/config-server:latest
+    environment: 
+      - GITHUB_TOKEN=
+    depends_on:
+      - eureka-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - acme
+
+  gateway-service:
+    container_name: gateway-service
+    image: moisesreis/gateway:latest
+    ports:
+      - "9999:9999"
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+
+  cobranca-service:
+    container_name: cobranca-service
+    image: moisesreis/cobranca:latest
+    networks:
+      - acme
+    depends_on:
+      config-server:
+        condition: service_healthy
+
+  cliente-service:
+    container_name: cliente-service
+    image: moisesreis/cliente:latest
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+
+  catalogo-service:
+    container_name: catalogo-service
+    image: moisesreis/catalogo:latest
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+
+  nota-fiscal-service:
+    container_name: nota-fiscal-service
+    image: moisesreis/nota-fiscal:latest
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+      - notafiscaldb
+      - rabbitmq
+
+  locacao-service:
+    container_name: locacao-service
+    image: moisesreis/locacao:latest
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+      - mongodb
+
 volumes:
   mongo-data:
     driver: local
