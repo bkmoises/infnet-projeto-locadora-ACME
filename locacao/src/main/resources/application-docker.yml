@@ -1,10 +1,9 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/locacao
+      uri: mongodb://locacaodb:27017/test
   application:
     name: locacao-service
-
 server:
   port: 8080
 

@@ -1,14 +1,9 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: secret
-    ports:
-      - 27017:27017
+  locacaodb:
+    image: mongo:7-jammy
+    container_name: locacaodb
     volumes:
       - mongo-data:/data/db
     networks:
@@ -18,13 +13,11 @@ services:
     image: mongo-express:latest
     container_name: mongo-express
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
-      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_SERVER: locacaodb
     ports:
       - 8081:8081
     depends_on:
-      - mongodb
+      - locacaodb
     networks:
       - acme
 
@@ -52,6 +45,21 @@ services:
     networks:
       - acme
 
+  usuariosdb:
+    image: mariadb:latest
+    container_name: usuariosdb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: usuarios
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - acme
+
   eureka-service:
     container_name: EUREKA-SERVICE
     image: moisesreis/eureka:latest
@@ -65,8 +73,8 @@ services:
     image: moisesreis/config-server:latest
     environment: 
       - GITHUB_TOKEN=
-    depends_on:
-      - eureka-service
+    ports:
+      - "8888:8888"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
       interval: 30s
@@ -74,6 +82,8 @@ services:
       retries: 5
     networks:
       - acme
+    depends_on:
+      - eureka-service
 
   gateway-service:
     container_name: gateway-service
@@ -127,7 +137,7 @@ services:
       - acme
     depends_on:
       - eureka-service
-      - mongodb
+      - locacaodb
 
   avaliacao-service:
     container_name: avaliacao-service
@@ -137,8 +147,30 @@ services:
     depends_on:
       - eureka-service
 
+  nota-fiscal-worker:
+    container_name: nota-fiscal-worker
+    image: moisesreis/nota-fiscal-worker:latest
+    networks:
+      - acme
+    depends_on:
+      - nota-fiscal-service
+      - rabbitmq
+
+  auth-service:
+    container_name: auth-service
+    image: moisesreis/auth-service:latest
+    ports:
+      - "9997:9997"
+    networks:
+      - acme
+    depends_on:
+      - eureka-service
+      - usuariosdb
+
 volumes:
   mongo-data:
+    driver: local
+  mariadb_data:
     driver: local
 
 networks:
