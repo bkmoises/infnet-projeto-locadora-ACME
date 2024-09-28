@@ -57,6 +57,7 @@ services:
       MYSQL_ROOT_PASSWORD: pass
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - acme
 
