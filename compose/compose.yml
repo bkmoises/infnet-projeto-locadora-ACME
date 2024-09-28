@@ -176,4 +176,3 @@ volumes:
 networks:
   acme:
     driver: bridge
-    external: true
