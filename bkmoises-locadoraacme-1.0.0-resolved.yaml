@@ -1,0 +1,649 @@
+openapi: 3.0.0
+info:
+  title: Locadora-ACME-API
+  description: API principal do sistema da Locadora ACME
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/bkmoises/locadoraacme/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:9999
+  description: Host dos principais serviços da Locadora ACME
+- url: http://localhost:9997
+  description: Host do serviço de autenticação de usuários da Locadora ACME
+paths:
+  /cliente/{id}:
+    get:
+      tags:
+      - Cliente
+      summary: Resgatar um cliente por ID
+      description: Este endpoint retorna um cliente com base no ID fornecido.
+      operationId: getById
+      parameters:
+      - name: id
+        in: path
+        description: Identificador único do cliente a ser recuperado.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Informação do cliente recuperada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "404":
+          description: Cliente não encontrado
+        "500":
+          description: Erro interno do servidor
+    delete:
+      tags:
+      - Cliente
+      summary: Remover um cliente
+      description: Este endpoint remove um cliente com base no ID fornecido.
+      parameters:
+      - name: id
+        in: path
+        description: ID único do cliente a ser removido.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Cliente removido com sucesso.
+        "404":
+          description: Cliente não encontrado.
+        "500":
+          description: Erro interno do servidor
+  /cliente:
+    get:
+      tags:
+      - Cliente
+      summary: Resgatar todos os clientes
+      description: Este endpoint retorna uma lista com todos os clientes cadastrados.
+      responses:
+        "200":
+          description: Retorna uma lista de clientes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+        "500":
+          description: Erro interno do servidor
+    put:
+      tags:
+      - Cliente
+      summary: Atualizar um cliente
+      description: Este endpoint atualiza as informações de um cliente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cliente_body'
+        required: true
+      responses:
+        "200":
+          description: Cliente atualizado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Dados de entrada inválidos.
+        "500":
+          description: Erro interno do servidor
+    post:
+      tags:
+      - Cliente
+      summary: Criar um novo cliente
+      description: Este endpoint cria um cliente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cliente_body_1'
+        required: true
+      responses:
+        "200":
+          description: Cliente criado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Campos inválidos.
+        "500":
+          description: Erro interno do servidor
+  /catalogo:
+    get:
+      tags:
+      - Catalogo
+      summary: Listar catálogos
+      description: Este endpoint retorna uma lista de catálogos com informações sobre filmes.
+      responses:
+        "200":
+          description: Lista de catálogos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_3'
+        "500":
+          description: Erro interno do servidor
+    put:
+      tags:
+      - Catalogo
+      summary: Atualizar catálogo.
+      description: Este endpoint atualiza um catálogo existente.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/catalogo_body'
+        required: true
+      responses:
+        "200":
+          description: Catálogo atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: Solicitação inválida
+        "500":
+          description: Erro interno do servidor
+    post:
+      tags:
+      - Catalogo
+      summary: Criar novo catálogo
+      description: Este endpoint cria um novo catálogo com as informações fornecidas.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/catalogo_body_1'
+        required: true
+      responses:
+        "200":
+          description: Catálogo criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "400":
+          description: Solicitação inválida
+        "500":
+          description: Erro interno do servidor
+  /catalogo/{id}:
+    get:
+      tags:
+      - Catalogo
+      summary: Obter catálogo por ID
+      description: Este endpoint retorna um catálogo específico com base no ID fornecido.
+      parameters:
+      - name: id
+        in: path
+        description: ID único do catálogo a ser recuperado.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Catálogo retornado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "404":
+          description: Catálogo não encontrado
+        "500":
+          description: Erro interno do servidor
+    delete:
+      tags:
+      - Catalogo
+      summary: Excluir catálogo por ID
+      description: Este endpoint exclui um catálogo específico com base no ID fornecido.
+      parameters:
+      - name: id
+        in: path
+        description: ID único do catálogo a ser excluído.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Catálogo excluído com sucesso
+        "404":
+          description: Catálogo não encontrado
+        "500":
+          description: Erro interno do servidor
+  /catalogo/{id}/complete:
+    get:
+      tags:
+      - Catalogo
+      summary: Obter catálogo completo por ID
+      description: "Este endpoint retorna informações completas de um catálogo, incluindo suas avaliações."
+      parameters:
+      - name: id
+        in: path
+        description: ID único do catálogo a ser consultado.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Catálogo e avaliações retornados com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+        "404":
+          description: Catálogo não encontrado
+        "500":
+          description: Erro interno do servidor
+  /avaliacao/{id}:
+    get:
+      tags:
+      - Avaliação
+      summary: Obter avaliação por ID
+      description: Este endpoint retorna informações sobre uma avaliação específica com base no ID fornecido.
+      parameters:
+      - name: id
+        in: path
+        description: ID único da avaliação a ser consultada.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Avaliação retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_7'
+        "404":
+          description: Avaliação não encontrada
+        "500":
+          description: Erro interno do servidor
+  /cobranca:
+    post:
+      tags:
+      - Cobranca
+      summary: Calcular cobrança total
+      description: Este endpoint calcula o valor total a ser cobrado com base nos pedidos de locação fornecidos.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cobranca_body'
+        required: true
+      responses:
+        "200":
+          description: Valor total calculado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_8'
+        "400":
+          description: "Erro de solicitação, dados inválidos."
+        "500":
+          description: Erro interno do servidor
+  /auth:
+    post:
+      tags:
+      - Auth
+      summary: Autenticação de Usuário
+      description: Este endpoint autentica um usuário e retorna um token de acesso.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth_body'
+        required: true
+      responses:
+        "200":
+          description: Autenticação bem-sucedida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_9'
+        "403":
+          description: Credenciais inválidas
+        "500":
+          description: Erro interno do servidor
+  /locacao:
+    post:
+      tags:
+      - Locacao
+      summary: Criar uma nova locação
+      description: Este endpoint registra uma nova locação com base nos pedidos fornecidos.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/locacao_body'
+        required: true
+      responses:
+        "201":
+          description: Locação criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: "Erro de solicitação, dados inválidos."
+        "401":
+          description: "Não autorizado, token de autenticação inválido."
+        "500":
+          description: Erro interno do servidor.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    cobranca_body:
+      type: object
+      properties:
+        pedidos:
+          type: array
+          items:
+            $ref: '#/components/schemas/cobranca_pedidos'
+    inline_response_200_9:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token JWT gerado para autenticação do usuário.
+    locacao_pedidos:
+      type: object
+      properties:
+        catalogoId:
+          type: integer
+          description: ID do catálogo do item a ser locado.
+        dias:
+          type: integer
+          description: Número de dias de locação.
+        dataLocacao:
+          type: string
+          description: Data da locação no formato YYYY-MM-DD.
+          format: date
+        dataDevolucao:
+          type: string
+          description: Data de devolução no formato YYYY-MM-DD.
+          format: date
+    locacao_body:
+      type: object
+      properties:
+        pedidos:
+          type: array
+          items:
+            $ref: '#/components/schemas/locacao_pedidos'
+    cliente_body:
+      required:
+      - email
+      - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome do cliente.
+        email:
+          type: string
+          description: Endereço de e-mail do cliente.
+          format: email
+    inline_response_200_5:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único do catálogo criado.
+        titulo:
+          type: string
+          description: Título do filme.
+        ano:
+          type: integer
+          description: Ano de lançamento do filme.
+        lancamento:
+          type: boolean
+          description: Indica se o filme é um lançamento.
+        disponivel:
+          type: boolean
+          description: Indica se o filme está disponível.
+    inline_response_200_6:
+      type: object
+      properties:
+        catalogo:
+          $ref: '#/components/schemas/inline_response_200_3'
+        avaliacoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_7'
+    inline_response_200_7:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único da avaliação.
+        catalogoId:
+          type: integer
+          description: ID do catálogo ao qual a avaliação pertence.
+        nota:
+          type: number
+          description: Nota dada ao catálogo.
+          format: float
+        comentario:
+          type: string
+          description: Comentário da avaliação.
+    inline_response_200_8:
+      type: object
+      properties:
+        valorTotal:
+          type: number
+          description: Valor total a ser cobrado.
+          format: float
+    catalogo_body:
+      required:
+      - ano
+      - disponivel
+      - lancamento
+      - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          description: Título do filme.
+        ano:
+          type: integer
+          description: Ano de lançamento do filme.
+        lancamento:
+          type: boolean
+          description: Indica se o filme é um lançamento.
+        disponivel:
+          type: boolean
+          description: Indica se o filme está disponível.
+    inline_response_201_pedidos:
+      type: object
+      properties:
+        catalogoId:
+          type: integer
+          description: ID do catálogo do item alugado.
+        dias:
+          type: integer
+          description: Número de dias de locação.
+        dataLocacao:
+          type: string
+          description: Data da locação.
+          format: date
+        dataDevolucao:
+          type: string
+          description: Data de devolução.
+          format: date
+    auth_body:
+      type: object
+      properties:
+        email:
+          type: string
+          description: O email do usuário.
+          format: email
+        password:
+          type: string
+          description: A senha do usuário.
+    inline_response_200_1:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador único do cliente.
+        nome:
+          type: string
+          description: Nome do cliente.
+        email:
+          type: string
+          description: Endereço de email do cliente.
+          format: email
+    cliente_body_1:
+      required:
+      - email
+      - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          description: Nome do cliente.
+        email:
+          type: string
+          description: Endereço de email do cliente.
+          format: email
+    inline_response_201:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único da locação criada.
+        pedidos:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_201_pedidos'
+        valorTotal:
+          type: number
+          description: Valor total da locação.
+          format: float
+    inline_response_200:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        nome:
+          type: string
+          example: string
+        email:
+          type: string
+          example: user@example.com
+    inline_response_200_2:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador único do cliente.
+        nome:
+          type: string
+          description: Nome do cliente.
+        email:
+          type: string
+          description: Endereço de e-mail do cliente.
+          format: email
+    inline_response_200_3:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único do catálogo.
+        titulo:
+          type: string
+          description: Título do filme.
+        ano:
+          type: integer
+          description: Ano de lançamento do filme.
+        lancamento:
+          type: boolean
+          description: Indica se o filme é um lançamento.
+        disponivel:
+          type: boolean
+          description: Indica se o filme está disponível.
+    catalogo_body_1:
+      required:
+      - ano
+      - disponivel
+      - lancamento
+      - titulo
+      type: object
+      properties:
+        titulo:
+          type: string
+          description: Título do filme.
+        ano:
+          type: integer
+          description: Ano de lançamento do filme.
+        lancamento:
+          type: boolean
+          description: Indica se o filme é um lançamento.
+        disponivel:
+          type: boolean
+          description: Indica se o filme está disponível.
+    inline_response_200_4:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único do catálogo atualizado.
+        titulo:
+          type: string
+          description: Título do filme atualizado.
+        ano:
+          type: integer
+          description: Ano de lançamento do filme atualizado.
+        lancamento:
+          type: boolean
+          description: Indica se o filme é um lançamento atualizado.
+        disponivel:
+          type: boolean
+          description: Indica se o filme está disponível atualizado.
+    cobranca_pedidos:
+      type: object
+      properties:
+        catalogoId:
+          type: integer
+          description: ID do catálogo do item alugado.
+        dias:
+          type: integer
+          description: Número de dias de locação.
+        dataLocacao:
+          type: string
+          description: Data da locação no formato YYYY-MM-DD.
+          format: date
+        dataDevolucao:
+          type: string
+          description: Data de devolução no formato YYYY-MM-DD.
+          format: date
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
